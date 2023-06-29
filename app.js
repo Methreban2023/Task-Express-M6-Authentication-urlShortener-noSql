@@ -4,12 +4,13 @@ const passport = require("passport");
 const app = express();
 const urlRoutes = require("./api/urls/urls.routes");
 const userRoutes = require("./api/users/users.routes");
-const dontenv = require("dotenv");
+// const dontenv = require("dotenv");
+// dontenv.config();
+require("dotenv").config();
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
 const notFoundHandler = require("./middleware/notFoundHandler");
 const errorHandler = require("./middleware/errorHandler");
-
-dontenv.config();
+const PORT = process.env.PORT || 8000;
 
 connectDb();
 app.use(express.json());
@@ -36,12 +37,11 @@ app.use((err, req, res, next) => {
     },
   });
 });
-const PORT = process.env.PORT || 8000;
 
 app.use(notFoundHandler);
 
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log("The application is running on localhost:8000");
+  console.log(`The application is running on localhost:${PORT}`);
 });

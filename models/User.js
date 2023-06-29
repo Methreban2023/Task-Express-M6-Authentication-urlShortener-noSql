@@ -4,9 +4,12 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    require: true,
+    required: true,
   },
-  password: String,
+  password: {
+    type: String,
+    required: true,
+  },
   urls: [
     {
       type: mongoose.Schema.Types.ObjectId,
